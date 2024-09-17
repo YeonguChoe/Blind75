@@ -1,5 +1,5 @@
 # Blind75
-
+- Programming Language: C-style C++
 
 ## Implement Trie (Prefix Tree)
 
