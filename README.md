@@ -130,3 +130,27 @@ vector<int> spiralOrder(vector<vector<int>>& matrix) {
     return result;
 }
 ```
+
+## Longest Increasing Subsequence
+```cpp
+int lengthOfLIS(vector<int>& nums) {
+    int dp[nums.size()];
+    for (int i = 0; i < nums.size(); i++) {
+        dp[i] = 1;
+    }
+
+    for (int i = 1; i < nums.size(); i++) {
+        for (int j = 0; j < i; j++) {
+            if (nums[j] < nums[i]) {
+                dp[i] = max(dp[i], dp[j] + 1);
+            }
+        }
+    }
+
+    int max_length = 1;
+    for (int length : dp) {
+        max_length = max(max_length, length);
+    }
+    return max_length;
+}
+```
