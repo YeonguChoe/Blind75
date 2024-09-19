@@ -1,57 +1,52 @@
 # Blind75
-- Programming Language: C-style C++
+- Programming Language: Java, Kotlin
 
 ## Implement Trie (Prefix Tree)
 
-```cpp
+```java
 class TrieNode {
-public:
-    TrieNode* links[26];
-    bool isEnd = false;
-};
+    TrieNode[] links = new TrieNode[26];
+    boolean isEnd = false;
+}
 
 class Trie {
-    TrieNode* root;
+    private TrieNode root;
 
-public:
-    Trie() { root = new TrieNode(); }
-
-    void insert(string word) {
-        TrieNode* current_node = root;
-        for (char c : word) {
-            if (current_node->links[c - 'a'] == nullptr) {
-                current_node->links[c - 'a'] = new TrieNode();
-            }
-            current_node = current_node->links[c - 'a'];
-        }
-        current_node->isEnd = true;
+    public Trie() {
+        root = new TrieNode();
     }
 
-    bool search(string word) {
-        TrieNode* current_node = root;
-        for (char c : word) {
-            if (current_node->links[c - 'a'] == nullptr) {
-                return false;
+    public void insert(String word) {
+        TrieNode currentNode = root;
+        for (char c : word.toCharArray()) {
+            if (currentNode.links[c - 'a'] == null) {
+                currentNode.links[c - 'a'] = new TrieNode();
             }
-            current_node = current_node->links[c - 'a'];
+            currentNode = currentNode.links[c - 'a'];
         }
-        if (current_node->isEnd == true) {
-            return true;
-        } else {
-            return false;
-        }
+        currentNode.isEnd = true;
     }
 
-    bool startsWith(string prefix) {
-        TrieNode* current_node = root;
-
-        for (char c : prefix) {
-            if (current_node->links[c - 'a'] == nullptr) {
+    public boolean search(String word) {
+        TrieNode currentNode = root;
+        for (char c : word.toCharArray()) {
+            if (currentNode.links[c - 'a'] == null) {
                 return false;
             }
-            current_node = current_node->links[c - 'a'];
+            currentNode = currentNode.links[c - 'a'];
+        }
+        return currentNode.isEnd;
+    }
+
+    public boolean startsWith(String prefix) {
+        TrieNode currentNode = root;
+        for (char c : prefix.toCharArray()) {
+            if (currentNode.links[c - 'a'] == null) {
+                return false;
+            }
+            currentNode = currentNode.links[c - 'a'];
         }
         return true;
     }
-};
+}
 ```
