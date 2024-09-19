@@ -83,3 +83,50 @@ bool isValid(string s) {
     return true;
 }
 ```
+
+## Spiral Matrix
+
+```cpp
+vector<int> spiralOrder(vector<vector<int>>& matrix) {
+    vector<int> result;
+    int row = matrix.size();
+    int column = matrix[0].size();
+
+    int up_rail = 0;
+    int down_rail = row - 1;
+    int left_rail = 0;
+    int right_rail = column - 1;
+
+    while (result.size() < row * column) {
+        // L->R
+        for (int c = left_rail; c <= right_rail; c++) {
+            result.push_back(matrix[up_rail][c]);
+        }
+        // T->B
+        for (int r = up_rail + 1; r <= down_rail; r++) {
+            result.push_back(matrix[r][right_rail]);
+        }
+
+        // R->L
+        if (up_rail != down_rail) {
+            for (int c = right_rail - 1; c >= left_rail; c--) {
+                result.push_back(matrix[down_rail][c]);
+            }
+        }
+
+        // B->T
+        if (left_rail != right_rail) {
+            for (int r = down_rail - 1; r > up_rail; r--) {
+                result.push_back(matrix[r][left_rail]);
+            }
+        }
+
+        left_rail += 1;
+        right_rail -= 1;
+        up_rail += 1;
+        down_rail -= 1;
+    }
+
+    return result;
+}
+```
