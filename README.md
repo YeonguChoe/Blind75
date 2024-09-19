@@ -1,5 +1,5 @@
 # Blind75
-- Programming Language: Java, Kotlin, C#
+- Programming Language: Java, C#
 
 ## Implement Trie (Prefix Tree)
 
