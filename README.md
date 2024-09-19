@@ -1,52 +1,85 @@
 # Blind75
-- Programming Language: Java, C#
+- Programming Language: CPP
 
 ## Implement Trie (Prefix Tree)
 
-```java
+```cpp
 class TrieNode {
-    TrieNode[] links = new TrieNode[26];
-    boolean isEnd = false;
-}
+public:
+    TrieNode* links[26];
+    bool isEnd = false;
+};
 
 class Trie {
-    private TrieNode root;
+    TrieNode* root;
 
-    public Trie() {
-        root = new TrieNode();
-    }
+public:
+    Trie() { root = new TrieNode(); }
 
-    public void insert(String word) {
-        TrieNode currentNode = root;
-        for (char c : word.toCharArray()) {
-            if (currentNode.links[c - 'a'] == null) {
-                currentNode.links[c - 'a'] = new TrieNode();
+    void insert(string word) {
+        TrieNode* current_node = root;
+        for (char c : word) {
+            if (current_node->links[c - 'a'] == nullptr) {
+                current_node->links[c - 'a'] = new TrieNode();
             }
-            currentNode = currentNode.links[c - 'a'];
+            current_node = current_node->links[c - 'a'];
         }
-        currentNode.isEnd = true;
+        current_node->isEnd = true;
     }
 
-    public boolean search(String word) {
-        TrieNode currentNode = root;
-        for (char c : word.toCharArray()) {
-            if (currentNode.links[c - 'a'] == null) {
+    bool search(string word) {
+        TrieNode* current_node = root;
+        for (char c : word) {
+            if (current_node->links[c - 'a'] == nullptr) {
                 return false;
             }
-            currentNode = currentNode.links[c - 'a'];
+            current_node = current_node->links[c - 'a'];
         }
-        return currentNode.isEnd;
+        if (current_node->isEnd == true) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    public boolean startsWith(String prefix) {
-        TrieNode currentNode = root;
-        for (char c : prefix.toCharArray()) {
-            if (currentNode.links[c - 'a'] == null) {
+    bool startsWith(string prefix) {
+        TrieNode* current_node = root;
+
+        for (char c : prefix) {
+            if (current_node->links[c - 'a'] == nullptr) {
                 return false;
             }
-            currentNode = currentNode.links[c - 'a'];
+            current_node = current_node->links[c - 'a'];
         }
         return true;
     }
+};
+```
+
+Valid Parentheses
+```cpp
+bool isValid(string s) {
+    stack<char> parentheses;
+
+    map<char, char> pair;
+    pair.insert({')', '('});
+    pair.insert({'}', '{'});
+    pair.insert({']', '['});
+
+    for (char c : s) {
+        if (c == '(' || c == '{' || c == '[') {
+            parentheses.push(c);
+        }
+        if (c == ')' || c == '}' || c == ']') {
+            if (parentheses.empty() or parentheses.top() != pair[c]) {
+                return false;
+            }
+            parentheses.pop();
+        }
+    }
+    if (!parentheses.empty()) {
+        return false;
+    }
+    return true;
 }
 ```
