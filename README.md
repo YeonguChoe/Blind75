@@ -56,6 +56,60 @@ public:
 };
 ```
 
+## Design Add and Search Word Data Structure
+```cpp
+class LetterNode {
+public:
+    LetterNode* alphabet[26]; // Initialize to nullptr
+    bool isEnd;
+};
+
+class WordDictionary {
+public:
+    LetterNode* root;
+
+    WordDictionary() { root = new LetterNode(); }
+
+    void addWord(string word) {
+        LetterNode* current_node = root;
+        for (char c : word) {
+            if (current_node->alphabet[c - 'a'] == nullptr) {
+                current_node->alphabet[c - 'a'] = new LetterNode();
+            }
+            current_node = current_node->alphabet[c - 'a'];
+        }
+        current_node->isEnd = true;
+    }
+
+    bool search(string word) { return dfs(word, root); }
+
+    bool dfs(string target, LetterNode* current_root) {
+        if (target.size() == 0) {
+            return current_root->isEnd;
+        }
+
+        char first_letter = target[0];
+        string remaining_target = target.substr(1);
+
+        if (first_letter == '.') {
+            for (int i = 0; i < 26; i++) {
+                if (current_root->alphabet[i] != nullptr &&
+                    dfs(remaining_target, current_root->alphabet[i])) {
+                    return true;
+                }
+            }
+        } else {
+            if (current_root->alphabet[first_letter - 'a'] != nullptr) {
+                return dfs(remaining_target,
+                           current_root->alphabet[first_letter - 'a']);
+            }
+        }
+
+        return false;
+    }
+};
+```
+
 Valid Parentheses
 ```cpp
 bool isValid(string s) {
