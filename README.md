@@ -154,3 +154,22 @@ int lengthOfLIS(vector<int>& nums) {
     return max_length;
 }
 ```
+## Container With Most Water
+```cpp
+int maxArea(vector<int>& height) {
+    int current_max = INT_MIN;
+    int left_ptr = 0;
+    int right_ptr = height.size() - 1;
+    while (left_ptr < right_ptr) {
+        int current_amount = (right_ptr - left_ptr) *
+                             min(height[left_ptr], height[right_ptr]);
+        current_max = max(current_max, current_amount);
+        if (height[left_ptr] < height[right_ptr]) {
+            left_ptr += 1;
+        } else {
+            right_ptr -= 1;
+        }
+    }
+    return current_max;
+}
+```
