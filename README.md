@@ -110,7 +110,7 @@ public:
 };
 ```
 
-Valid Parentheses
+## Valid Parentheses
 ```cpp
 bool isValid(string s) {
     stack<char> parentheses;
